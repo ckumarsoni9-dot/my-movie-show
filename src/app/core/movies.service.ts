@@ -6,9 +6,9 @@ export class MoviesService {
   private _movies = signal<Movie[]>([
     {
       id: 1,
-      title: 'Game of Thrones Season 5',
-      description: 'Game of Thrones Season 5: Episode #9 Clip - Daenerys Escape (HBO)',
-      youtubeId: 'G-yYULj7NAU'
+      title: 'Game of Thrones S01E01',
+      description: 'Game of Thrones S01E01 720p 10Bit BluRay Hindi ORG 2 0 English HEVC x265 HDHub4u Tv',
+      youtubeId: 'JOqn_hXxk5Q'
     }
   ]);
   private nextId = 2;
