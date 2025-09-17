@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../core/auth.service';
 
@@ -18,15 +18,13 @@ Admin Login
   <br />
   <button type="submit">Login</button>
 </form>
-<span *ngIf="error" style="color: red;">{{ error }}</span>
+@if(error){<span style="color: red;">{{ error }}</span>}
+
     </pre>
   `
 })
-export class AdminLoginComponent {
-  form = this.fb.group({
-    username: '',
-    password: ''
-  });
+export class AdminLoginComponent implements OnInit {
+  form!:FormGroup;
   error = '';
 
   constructor(
@@ -34,6 +32,12 @@ export class AdminLoginComponent {
     private router: Router,
     private auth: AuthService
   ) {}
+  ngOnInit(): void {
+    this.form = this.fb.group({
+    username: '',
+    password: ''
+  });
+  }
 
   login() {
     const { username, password } = this.form.value;

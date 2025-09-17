@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../core/auth.service';
 import { MoviesService } from '../core/movies.service';
@@ -20,22 +20,26 @@ Admin Dashboard
 
 <h3>Movies List</h3>
 <ul>
-  <li *ngFor="let movie of movies()">
+  @for(movie of movies(); track $index){
+  <li >
     <b>{{ movie.title }}</b>
     <button (click)="editMovie(movie)">Edit</button>
     <button (click)="deleteMovie(movie.id)">Delete</button>
-    <div *ngIf="editingId === movie.id">
+    @if(editingId === movie.id){
+    <div >
       <movie-form [movie]="movie" (save)="updateMovie(movie.id, $event)" (cancel)="cancelEdit()"></movie-form>
     </div>
+  }
     <div>{{ movie.description }}</div>
     <div>YouTube ID: {{ movie.youtubeId }}</div>
   </li>
+  }
 </ul>
     </pre>
   `
 })
-export class AdminDashboardComponent {
-  movies = this.moviesService.movies;
+export class AdminDashboardComponent implements OnInit{
+  movies:any;
   editingId: number | null = null;
 
   constructor(
@@ -43,6 +47,9 @@ export class AdminDashboardComponent {
     private router: Router,
     private moviesService: MoviesService
   ) {}
+  ngOnInit(): void {
+    this.movies = this.moviesService.movies;
+  }
 
   logout() {
     this.auth.logout();

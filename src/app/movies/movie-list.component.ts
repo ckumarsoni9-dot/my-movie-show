@@ -11,17 +11,23 @@ import { MoviePlayerComponent } from './movie-player.component';
 Movies List
 
 <ul>
-  <li *ngFor="let movie of movies()">
+  @for(movie of movies(); track $index)
+    {
+  <li >
     <b>{{ movie.title }}</b>
     <div>{{ movie.description }}</div>
     <movie-player [youtubeId]="movie.youtubeId"></movie-player>
   </li>
+    }
+
 </ul>
     </pre>
   `
 })
 export class MovieListComponent {
-  movies = this.moviesService.movies;
+  movies: any;
 
-  constructor(private moviesService: MoviesService) {}
+  constructor(private moviesService: MoviesService) {
+    this.movies = this.moviesService.movies;
+  }
 }

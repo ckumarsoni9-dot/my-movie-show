@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Movie } from '../core/movie.model';
 
 @Component({
@@ -12,7 +12,8 @@ import { Movie } from '../core/movie.model';
       <label>Description: <textarea formControlName="description"></textarea></label><br />
       <label>YouTube ID: <input formControlName="youtubeId" /></label><br />
       <button type="submit">Save</button>
-      <button type="button" *ngIf="movie" (click)="cancel.emit()">Cancel</button>
+      @if(movie){<button type="button"  (click)="cancel.emit()">Cancel</button>}
+      
     </form>
   `
 })
@@ -21,15 +22,16 @@ export class MovieFormComponent {
   @Output() save = new EventEmitter<Omit<Movie, 'id'>>();
   @Output() cancel = new EventEmitter<void>();
 
-  form = this.fb.group({
-    title: '',
-    description: '',
-    youtubeId: ''
-  });
+  form!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.form = this.fb.group({
+      title: '',
+      description: '',
+      youtubeId: ''
+    });
     if (this.movie) {
       this.form.patchValue({
         title: this.movie.title,

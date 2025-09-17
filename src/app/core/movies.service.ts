@@ -6,9 +6,9 @@ export class MoviesService {
   private _movies = signal<Movie[]>([
     {
       id: 1,
-      title: 'Sample Movie',
-      description: 'This is a sample movie description.',
-      youtubeId: 'dQw4w9WgXcQ'
+      title: 'Game of Thrones Season 5',
+      description: 'Game of Thrones Season 5: Episode #9 Clip - Daenerys Escape (HBO)',
+      youtubeId: 'G-yYULj7NAU'
     }
   ]);
   private nextId = 2;

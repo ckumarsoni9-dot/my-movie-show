@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'movie-player',
@@ -6,7 +7,7 @@ import { Component, Input } from '@angular/core';
   template: `
     <div>
       <iframe 
-        width="320" height="180"
+        width="560" height="315"
         [src]="youtubeUrl"
         frameborder="0"
         allowfullscreen>
@@ -16,8 +17,15 @@ import { Component, Input } from '@angular/core';
 })
 export class MoviePlayerComponent {
   @Input() youtubeId!: string;
+  youtubeUrl!: SafeResourceUrl;
+    constructor(private sanitizer: DomSanitizer) {}
 
-  get youtubeUrl() {
-    return 'https://www.youtube.com/embed/' + this.youtubeId;
+ 
+    ngOnChanges() {
+    if (this.youtubeId) {
+      this.youtubeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+        `https://www.youtube.com/embed/${this.youtubeId}`
+      );
+    }
   }
 }
