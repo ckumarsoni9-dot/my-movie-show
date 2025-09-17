@@ -1,0 +1,16 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+  font-family: "Fira Mono", "Consolas", "Menlo", "Monaco", "Courier New", monospace;
+  background: #fafafa;
+  color: #222;
+  margin: 0;
+  padding: 0;
+}
+input, textarea, button, select {
+  font-family: inherit;
+  font-size: 1rem;
+}
+a {
+  color: inherit;
+  text-decoration: underline;
+}
