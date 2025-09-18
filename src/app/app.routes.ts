@@ -3,21 +3,22 @@ import { adminRoutes } from './admin/admin.routes';
 import { moviesRoutes } from './movies/movies.routes';
 
 export const routes: Routes = [
-      {
+  {
+    path: '',
+    redirectTo: 'movies',
+    pathMatch: 'full'
+  },
+  {
     path: 'admin',
     children: adminRoutes
   },
   {
     path: 'movies',
-    children: moviesRoutes
+    children: moviesRoutes,
   },
-  {
-    path: '',
-    redirectTo: '/movies',
-    pathMatch: 'full'
-  },
+
   {
     path: '**',
-    redirectTo: '/movies'
+    redirectTo: 'movies'
   }
 ];
